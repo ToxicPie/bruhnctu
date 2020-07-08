@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    {% if (dark is defined and dark) %}
+    <meta name="theme-color" content="#333333">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/code-dark.css') }}" />
+    {% else %}
+    <meta name="theme-color" content="#f8f8f8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/code-light.css') }}" />
+    {% endif %}
+</head>
+<body>
+    {{ html }}
+</body>
+</html>

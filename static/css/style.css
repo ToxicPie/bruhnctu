@@ -1,0 +1,92 @@
+body {
+    font-family: "Roboto Slab", "Noto Sans TC", sans-serif;
+    min-height: 100%;
+}
+
+@media (max-width: 540px) {
+    .content {
+        margin: 5px 12.5px;
+    }
+}
+@media (min-width: 540px) {
+    .content {
+        margin: 5px calc(25% - 50px);
+    }
+}
+
+.section {
+    padding-bottom: .5em;
+}
+
+.section-title {
+    margin: .5em 0;
+    padding-top: .5em;
+}
+
+.item-list {
+    column-count: 2;
+    column-width: auto;
+}
+
+pre, code {
+    font-family: "Courier Prime";
+}
+
+blockquote {
+    width: fit-content;
+    color: #444;
+    background-color: #f7f7f7;
+    border-left: 4px solid #c7c7c7;
+    margin-left: .5em;
+    padding: .5em 2em .5em 1em;
+}
+blockquote > p {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+blockquote > p:first-child {
+    margin-top: 0;
+}
+blockquote > p:last-child {
+    margin-bottom: 0;
+}
+
+spoiler:not(:hover):not(:focus) {
+    color: #222;
+    background-color: #222;
+}
+spoiler:focus {
+    outline: none;
+}
+
+a {
+    color: #1B599E;
+    text-decoration: none;
+}
+a:hover {
+    color: #092B52;
+}
+
+summary {
+    padding-left: 1em;
+}
+
+ol, ul, .brief-list, .item-list {
+    margin: .5em 0;
+    padding-left: 2em;
+}
+
+li, .brief-list li, .item-list li {
+    margin: 0 0 .25em 0;
+}
+
+footer hr {
+    border: 1px solid #888;
+    margin-top: 1.5rem;
+}
+
+footer p {
+    color: #444;
+    line-height: 1.4em;
+    text-align: center;
+}

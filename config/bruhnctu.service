@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve bruhnctu
+After=network.target
+
+[Service]
+User=kent
+# Group=www-data
+WorkingDirectory=/web/bruhnctu/
+Environment="PATH=/web/bruhnctu/venv/bin"
+ExecStart=uwsgi --ini config/uwsgi_config.ini
+
+[Install]
+WantedBy=multi-user.target

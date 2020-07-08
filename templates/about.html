@@ -1,0 +1,17 @@
+<!-- served with Flask 1.1.2 and nginx 1.16.1 -->
+<!DOCTYPE html>
+<html>
+<head>
+    {% include('include/_head-metas.html') %}
+    {% include('include/_head-links.html') %}
+
+    <title>About Me</title>
+</head>
+<body>
+    <div class="content">
+        <h1>About Me</h1>
+        {% include('include/_tmp-intro-full.html') %}
+        {% include('include/_footer.html') %}
+    </div>
+</body>
+</html>
