@@ -2,3 +2,5 @@
 venv/
 files/
 todo
+config/bruhnctu.service
+config/uwsgi_config.ini
