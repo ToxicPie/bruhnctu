@@ -64,6 +64,7 @@ def login_post():
         flash('Bad hacker ...?', 'warning')
         return abort(400)
 
+    flash('You have successfully logged in.', 'success')
     return redirect(next or url_for('pages.index'))
 
 

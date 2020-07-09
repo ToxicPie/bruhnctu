@@ -79,9 +79,9 @@ blockquote > p:last-child {
     border-left-color: #ff2030;
 }
 .alert-success {
-    color: #111;
-    background-color: #d7ffe0;
-    border-left-color: #40e070;
+    color: #333;
+    background-color: #d7ffd7;
+    border-left-color: #40e050;
 }
 .alert.hidden {
     display: none;
