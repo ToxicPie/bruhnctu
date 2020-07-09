@@ -3,6 +3,7 @@
 venv/
 config/bruhnctu.service
 config/uwsgi_config.ini
+db.sqlite
 
 files/
 pages/
