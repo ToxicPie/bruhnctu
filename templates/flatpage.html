@@ -12,10 +12,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            for(const elem of document.getElementsByTagName("spoiler")) {
-                elem.setAttribute("tabindex", "-1");
-                elem.setAttribute("title", "You've known too much.");
-            }
             renderMathInElement(document.body, {
                 delimiters: [
                     {left: "$", right: "$", display: false},
@@ -31,6 +27,10 @@
 </head>
 <body>
     <div class="content">
+        <div class="section title">
+            <h1>{{ page['title'] }}</h1>
+        </div>
+        {% include('include/flash-messages.html') %}
         {{ page }}
         {% include('include/footer.html') %}
     </div>
