@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    {% include('include/head-metas.html') %}
-    {% include('include/head-links.html') %}
+{% extends 'default.html' %}
 
-    <title>About Me</title>
-</head>
-<body>
-    <div class="content">
-        <div class="section title">
-            <h1>About Me</h1>
-        </div>
-        {% include('include/flash-messages.html') %}
-        {% include('include/tmp-intro-full.html') %}
-        {% include('include/footer.html') %}
-    </div>
-</body>
-</html>
+{% block title %}About Me{% endblock %}
+
+{% block h1 %}About Me{% endblock %}
+
+{% block body %}
+    {% include('include/tmp-intro-full.html') %}
+{% endblock %}

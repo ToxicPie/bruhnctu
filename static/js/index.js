@@ -11,4 +11,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 elem.parentElement.classList.add('hidden');
         });
     }
+    if(document.getElementsByClassName('toc').length !== 0 &&
+       document.getElementById('toc-container') !== null) {
+        let toc = document.getElementsByClassName('toc')[0];
+        document.getElementById('toc-container').appendChild(toc);
+    }
 });

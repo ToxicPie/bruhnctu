@@ -23,8 +23,7 @@ def load_user(user_id):
 @login_manager.unauthorized_handler
 def handle_needs_login():
     flash('Please login to continue.', 'warning')
-    next = url_for(request.endpoint, **request.args)
-    return redirect(url_for('auth.login_get', next=next))
+    return redirect(url_for('auth.login_get', next=request.full_path))
 
 
 @blueprint.route('/logout', methods=['GET', 'POST'])

@@ -1,24 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    {% include('include/head-metas.html') %}
-    {% include('include/head-links.html') %}
+{% extends 'default.html' %}
 
-    <title>{{ code }}</title>
-</head>
-<body>
-    <div class="content">
-        <div class="section title">
-            <h1>{{ code }} {{ message }}</h1>
+{% block title %}{{ code }}{% endblock %}
+
+{% block h1 %}{{ code }} {{ message }}{% endblock %}
+
+{% block messages %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="section">
+            <p>{{ messages[0] }}</p>
         </div>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <div class="section">
-                <p>{{ messages[0] }}</p>
-            </div>
-            {% endif %}
-        {% endwith %}
-        {% include('include/footer.html') %}
-    </div>
-</body>
-</html>
+        {% endif %}
+    {% endwith %}
+{% endblock %}
