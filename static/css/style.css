@@ -4,15 +4,22 @@ body {
 }
 
 @media (max-width: 540px) {
+    :root {
+        font-size: 14px;
+    }
     .content {
         margin: 5px 12.5px;
     }
 }
 @media (min-width: 540px) {
+    :root {
+        font-size: 16px;
+    }
     .content {
         margin: 5px calc(25% - 50px);
     }
 }
+
 
 .section {
     padding-bottom: .5em;
@@ -87,6 +94,7 @@ footer hr {
 
 footer p {
     color: #444;
+    font-size: .9em;
     line-height: 1.4em;
     text-align: center;
 }
