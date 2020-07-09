@@ -1,6 +1,10 @@
 **/__pycache__/
+
 venv/
-files/
-todo
 config/bruhnctu.service
 config/uwsgi_config.ini
+
+files/
+pages/
+
+todo
