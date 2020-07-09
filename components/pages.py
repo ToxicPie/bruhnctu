@@ -16,8 +16,6 @@ def s(path):
 # home page(s)
 @blueprint.route('/')
 def index():
-    flask.flash('hello')
-    flask.flash('hello2')
     return flask.render_template('index.html')
 
 @blueprint.route('/about')
