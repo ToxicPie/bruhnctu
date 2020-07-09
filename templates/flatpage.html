@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {% include('include/_head-metas.html') %}
-    {% include('include/_head-links.html') %}
+    {% include('include/head-metas.html') %}
+    {% include('include/head-links.html') %}
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/markdown-code.css') }}" />
     <!-- katex -->
@@ -33,7 +33,7 @@
 <body>
     <div class="content">
         {{ page }}
-        {% include('include/_footer.html') %}
+        {% include('include/footer.html') %}
     </div>
 </body>
 </html>
