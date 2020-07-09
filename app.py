@@ -1,5 +1,8 @@
 import flask
 from flask_flatpages import FlatPages
+from werkzeug.exceptions import HTTPException
+import logging
+
 import components
 
 
@@ -39,21 +42,25 @@ def flatpage(path):
 
 
 # error handlers
-@app.errorhandler(401)
-def error_401(e):
-    return flask.render_template('errors/401.html'), 401
+@app.errorhandler(Exception)
+def on_error(e):
+    if isinstance(e, HTTPException):
+        error_code = e.code
+    else:
+        # not http error, log to file
+        logging.exception("Internal server error")
+        error_code = 500
 
-@app.errorhandler(403)
-def error_403(e):
-    return flask.render_template('errors/403.html'), 403
-
-@app.errorhandler(404)
-def error_404(e):
-    return flask.render_template('errors/404.html'), 404
-
-@app.errorhandler(500)
-def error_500(e):
-    return flask.render_template('errors/500.html'), 500
+    ERROR_MSGS = {
+        401: "Unauthorized",
+        403: "Forbidden",
+        404: "Not Found",
+        500: "Internal Server Error",
+    }
+    error_msg = ERROR_MSGS.get(error_code, 'Unhandled error')
+    return flask.render_template('error.html',
+                                 code=error_code,
+                                 message=error_msg), error_code
 
 
 if __name__ == '__main__':
