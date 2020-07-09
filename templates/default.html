@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include('include/head-metas.html') %}
+    {% include('include/head-links.html') %}
+
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% block nav %}{% endblock %}
+    <div class="content">
+        <div class="section title">
+            <h1>{% block h1 %}{% endblock %}</h1>
+        </div>
+
+        {% block messages %}
+            {% include('include/flash-messages.html') %}
+        {% endblock %}
+
+        {% block body %}{% endblock %}
+
+        {% include('include/footer.html') %}
+    </div>
+</body>
+</html>

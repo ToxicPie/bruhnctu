@@ -7,6 +7,9 @@ FLATPAGES_AUTO_RELOAD = True
 FLATPAGES_EXTENSION_CONFIGS = {
     'codehilite': {
         'linenums': 'True'
+    },
+    'toc': {
+        'toc_depth': '2-2'
     }
 }
 
