@@ -5,24 +5,19 @@
     {% include('include/head-links.html') %}
 
     <title>{{ code }}</title>
-
-    <style>
-        /* .error-message h1 {
-            font-size: 2.5em;
-            margin: .5em 0;
-        }
-        .error-message p {
-            font-size: 1.5em;
-            margin: .5em 0;
-            font-weight: bold;
-        } */
-    </style>
 </head>
 <body>
     <div class="content">
         <div class="section title">
             <h1>{{ code }} {{ message }}</h1>
         </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="section">
+                <p>{{ messages[0] }}</p>
+            </div>
+            {% endif %}
+        {% endwith %}
         {% include('include/footer.html') %}
     </div>
 </body>

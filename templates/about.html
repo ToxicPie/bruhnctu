@@ -8,7 +8,10 @@
 </head>
 <body>
     <div class="content">
-        <h1>About Me</h1>
+        <div class="section title">
+            <h1>About Me</h1>
+        </div>
+        {% include('include/flash-messages.html') %}
         {% include('include/tmp-intro-full.html') %}
         {% include('include/footer.html') %}
     </div>

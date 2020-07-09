@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include('include/head-metas.html') %}
+    {% include('include/head-links.html') %}
+
+    <title>Login</title>
+<body>
+    <div class="content">
+        <div class="section title">
+            <h1>Login to bruh</h1>
+        </div>
+        {% include('include/flash-messages.html') %}
+        <div class="section">
+            <form class="form" method="POST" action="{{ url_for('auth.login_get', next=request.args.get('next')) }}">
+                {{ form.csrf_token }}
+                <div class="form-field">
+                    {{ form.username.label }}
+                    <br>
+                    {{ form.username(maxlength=100) }}
+                </div>
+                <div class="form-field">
+                    {{ form.password.label }}
+                    <br>
+                    {{ form.password(maxlength=100) }}
+                </div>
+                <div class="form-field">
+                    {{ form.remember }}
+                    {{ form.remember.label }}
+                </div>
+                <input type="submit" class="submit-button" value="Continue">
+            </form>
+        </div>
+        {% include('include/footer.html') %}
+    </div>
+</body>
+</html>
