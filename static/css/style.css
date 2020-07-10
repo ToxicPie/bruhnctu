@@ -25,28 +25,45 @@ body {
 
 @media (max-width: 960px) {
     .navbar {
-        display: none !important;
+        font-size: .9em;
+        margin-bottom: 2em;
+    }
+    .navbar .menu-item {
+        display: none;
+    }
+    #edit {
+        display: block;
+        text-align: right;
+        width: 100%;
+    }
+    .navbar a {
+        width: fit-content;
     }
 }
-.navbar {
-    font-size: .9em;
-    position: fixed;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    width: calc(25% - 50px - 4em);
-    height: calc(100% - 20px - 5em);
-    margin: 2em 2em 3em 2em;
-    overflow: auto;
+@media (min-width: 960px) {
+    .navbar {
+        font-size: .9em;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        width: calc(25% - 50px - 4em);
+        height: calc(100% - 10px - 4em);
+        margin: 2em;
+        overflow-y: auto;
+    }
+    #toc-container {
+        overflow: auto;
+        max-height: calc(100% - 10px - 4em);
+    }
+    .navbar a {
+        width: 100%;
+    }
 }
 .navbar a {
     display: block;
-    width: 100%;
     margin: .25em 0 0 0;
-}
-#toc-container {
-    overflow: auto;
-    max-height: calc(100% - 10px - 4em);
 }
 .navbar hr {
     margin: .75em 0 .25em 0;
@@ -163,6 +180,7 @@ a {
 }
 a:hover {
     color: #205090;
+    text-decoration: underline;
 }
 
 summary {
