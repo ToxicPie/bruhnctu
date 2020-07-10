@@ -26,7 +26,7 @@
 {% block h1 %}{{ page['title'] }}{% endblock %}
 
 {% block nav %}
-    {% include('include/navbar.html') %}
+    {# {% include('include/navbar.html') %} #}
 {% endblock %}
 
 {% block toc %}
@@ -34,5 +34,6 @@
 {% endblock %}
 
 {% block body %}
+    {% include('include/navbar.html') %}
     {{ page }}
 {% endblock %}
