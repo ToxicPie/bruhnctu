@@ -1,7 +1,7 @@
 from flask import *
 import bcrypt
 from urllib.parse import urlparse, urljoin
-from flask_login import LoginManager, login_required, login_user, logout_user
+from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from . import forms, database
 
 
@@ -9,7 +9,7 @@ blueprint = Blueprint('auth', __name__)
 
 
 login_manager = LoginManager()
-login_manager.login_view = 'auth.login_get'
+login_manager.login_view = 'auth.login'
 login_manager.login_message = 'Please login to continue.'
 login_manager.login_message_category = 'warning'
 
@@ -23,7 +23,7 @@ def load_user(user_id):
 @login_manager.unauthorized_handler
 def handle_needs_login():
     flash('Please login to continue.', 'warning')
-    return redirect(url_for('auth.login_get', next=request.full_path))
+    return redirect(url_for('auth.login', next=request.full_path))
 
 
 @blueprint.route('/logout', methods=['GET', 'POST'])
@@ -34,21 +34,18 @@ def logout():
     return redirect(url_for('pages.index'))
 
 
-@blueprint.route('/login', methods=['POST'])
-def login_post():
+@blueprint.route('/login', methods=['GET', 'POST'])
+def login():
     form = forms.LoginForm(request.form)
-    if not form.validate():
-        flash('Invalid form data.', 'warning')
-        return abort(400)
-
-    next = request.args.get('next')
+    if not form.validate_on_submit():
+        return render_template('login.html', form=form)
 
     user = database.User.query.filter_by(username=form.username.data).first()
 
     # check if password matches database
     if not user or not bcrypt.checkpw(form.password.data.encode('ascii'), user.password):
-        flash('Invalid credentials, please try again.', 'error')
-        return redirect(url_for('auth.login_get', next=next))
+        flash('Error: Invalid credentials, please try again.', 'error')
+        return render_template('login.html', form=form)
 
     login_user(user, remember=form.remember.data)
 
@@ -58,19 +55,57 @@ def login_post():
         return (test_url.scheme in ('http', 'https') and
                 ref_url.netloc == test_url.netloc)
 
+    next = request.args.get('next')
     # check if the url is safe for redirect
     if not is_safe_url(next):
         flash('Bad hacker ...?', 'warning')
         return abort(400)
 
-    flash('You have successfully logged in.', 'info')
+    flash('Welcome, {0}!'.format(current_user.username), 'success')
     return redirect(next or url_for('pages.index'))
 
+@blueprint.route('/account', methods=['GET', 'POST'])
+@login_required
+def account():
+    form = forms.AccountForm(request.form)
+    if not form.validate_on_submit():
+        return render_template('account.html', form=form)
 
-@blueprint.route('/login', methods=['GET'])
-def login_get():
-    form = forms.LoginForm()
-    return render_template('login.html', form=form)
+    # check password
+    user = database.User.query.filter_by(id=current_user.id).first()
+    if not user or not bcrypt.checkpw(form.password.data.encode('ascii'), user.password):
+        flash('Error: Invalid credentials, please try again.', 'error')
+        return render_template('account.html', form=form)
+
+    user_updated = False
+
+    # change username
+    if form.new_username.data and form.new_username.data != current_user.username:
+        test_user = database.User.query.filter_by(username=form.new_username.data).first()
+        if test_user:
+            flash('That username is taken.', 'error')
+            flash('Nothing was changed.', 'warning')
+            return render_template('account.html', form=form)
+        else:
+            user = database.User.query.filter_by(id=current_user.id).first()
+            user.username = form.new_username.data
+            user_updated = True
+
+    # change password
+    if form.new_password.data:
+        hash = bcrypt.hashpw(form.new_password.data.encode('ascii'), bcrypt.gensalt())
+        user = database.User.query.filter_by(id=current_user.id).first()
+        user.new_password = hash
+        user_updated = True
+
+    # is something changed?
+    if user_updated:
+        database.db.session.commit()
+        flash('Your user account has been updated.', 'success')
+    else:
+        flash('Nothing was changed.', 'warning')
+
+    return redirect(url_for('auth.account'))
 
 
 # only works in CLI

@@ -5,18 +5,19 @@
 {% block h1 %}Login to bruh{% endblock %}
 
 {% block body %}
+{% include('include/form-errors.html') %}
 <div class="section">
-    <form class="form" method="POST" action="{{ url_for('auth.login_get', next=request.args.get('next')) }}">
+    <form name="login" method="POST" action="{{ request.full_path }}">
         {{ form.csrf_token }}
         <div class="form-field">
             {{ form.username.label }}
             <br>
-            {{ form.username(maxlength=100) }}
+            {{ form.username(maxlength='100') }}
         </div>
         <div class="form-field">
             {{ form.password.label }}
             <br>
-            {{ form.password(maxlength=100) }}
+            {{ form.password(maxlength='100') }}
         </div>
         <div class="form-field">
             {{ form.remember }}

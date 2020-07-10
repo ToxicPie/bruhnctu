@@ -6,7 +6,8 @@ FLATPAGES_EXTENSION = ['.htm', '.html', '.md']
 FLATPAGES_AUTO_RELOAD = True
 FLATPAGES_EXTENSION_CONFIGS = {
     'codehilite': {
-        'linenums': 'True'
+        'linenums': 'True',
+        'guess_lang': 'False'
     },
     'toc': {
         'toc_depth': '2-2'
