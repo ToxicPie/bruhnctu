@@ -31,7 +31,7 @@ def handle_needs_login():
 def logout():
     logout_user()
     flash('You have logged out.', 'info')
-    return redirect(url_for('auth.login_get'))
+    return redirect(url_for('pages.index'))
 
 
 @blueprint.route('/login', methods=['POST'])
@@ -63,7 +63,7 @@ def login_post():
         flash('Bad hacker ...?', 'warning')
         return abort(400)
 
-    flash('You have successfully logged in.', 'success')
+    flash('You have successfully logged in.', 'info')
     return redirect(next or url_for('pages.index'))
 
 
