@@ -3,18 +3,6 @@ import wtforms
 
 
 class LoginForm(FlaskForm):
-    # def username_check(form, field):
-    #     if len(field.data) > 100 or len(field.data) < 3:
-    #         raise wtforms.validators.ValidationError('Username must be between 3 and 100 characters')
-    #     if any(ord(c) >= 128 for c in field.data):
-    #         raise wtforms.validators.ValidationError('Username cannot have non-ascii characters')
-    #
-    # def password_check(form, field):
-    #     if len(field.data) > 100 or len(field.data) < 6:
-    #         raise wtforms.validators.ValidationError('Password must be between 6 and 100 characters')
-    #     if any(ord(c) >= 128 for c in field.data):
-    #         raise wtforms.validators.ValidationError('Password cannot have non-ascii characters')
-
     username = wtforms.StringField('Username', validators=[
         wtforms.validators.InputRequired(),
         wtforms.validators.Length(max=100)
@@ -24,3 +12,39 @@ class LoginForm(FlaskForm):
         wtforms.validators.Length(max=100)
     ])
     remember = wtforms.BooleanField('Remember me')
+
+class AccountForm(FlaskForm):
+    new_username = wtforms.StringField('New username', validators=[
+        wtforms.validators.Optional(),
+        wtforms.validators.Length(min=3, max=100),
+        wtforms.validators.Regexp(r'[a-zA-Z0-9_]+', message='Can only contain letters, numbers, and underscores.')
+    ])
+    password = wtforms.PasswordField('Current password', validators=[
+        wtforms.validators.InputRequired(),
+        wtforms.validators.Length(max=100)
+    ])
+    new_password = wtforms.PasswordField('New password', validators=[
+        wtforms.validators.Optional(),
+        wtforms.validators.Length(min=6, max=100),
+        wtforms.validators.EqualTo('confirm_password', message='Passwords must match.')
+    ])
+    confirm_password = wtforms.PasswordField('Confirm password', validators=[
+        wtforms.validators.Optional()
+    ])
+
+class CreatePageForm(FlaskForm):
+    path = wtforms.PasswordField('Confirm password', validators=[
+        wtforms.validators.InputRequired()
+    ])
+
+class EditPageForm(FlaskForm):
+    path = wtforms.PasswordField('Confirm password', validators=[
+        wtforms.validators.InputRequired()
+    ])
+    content = wtforms.TextAreaField('Confirm password', validators=[])
+
+class UploadFileForm(FlaskForm):
+    path = wtforms.PasswordField('Confirm password', validators=[
+        wtforms.validators.InputRequired()
+    ])
+    content = wtforms.TextAreaField('Confirm password', validators=[])

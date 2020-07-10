@@ -95,8 +95,13 @@ body {
     margin: 0;
 }
 pre, code {
-    font-size: .9rem;
     font-family: "Source Code Pro";
+}
+.codehilite pre {
+    padding-left: .25em;
+}
+.linenodiv pre, .codehilite, pre code {
+    font-size: .9rem;
 }
 
 blockquote {
@@ -120,7 +125,7 @@ blockquote > p:last-child {
 
 .alert {
     width: fit-content;
-    margin: .5em .25em;
+    margin: .25em .25em 1em .25em;
     border-left: 4px solid;
     padding: .5em 2.5em .5em 1em;
     position: relative;
@@ -137,7 +142,7 @@ blockquote > p:last-child {
 }
 .alert-error {
     color: #111;
-    background-color: #ffe0d7;
+    background-color: #ffe0e0;
     border-left-color: #ff2030;
 }
 .alert-success {

@@ -1,6 +1,6 @@
 import flask
 from . import storage
-from flask_login import login_required
+from flask_login import login_required, current_user
 import markdown
 from markdown.extensions.toc import TocExtension
 
@@ -21,17 +21,37 @@ def s(path):
 def index():
     return flask.render_template('index.html')
 
-@blueprint.route('/about')
-def about():
-    return flask.render_template('about.html')
+@blueprint.route('/', methods=['BREW'])
+def teapot():
+    flask.abort(418)
+
+# @blueprint.route('/about')
+# def about():
+#     return flask.render_template('about.html')
 
 # flatpages (markdown pages)
 @blueprint.route('/<path:path>')
 def flatpage(path):
     page = flatpages.get_or_404(path)
-    # text = open('pages/' + path + '.md', 'r').read()
-    # md = markdown.Markdown(extensions=[TocExtension(toc_depth="2-2")])
-    # md.convert(text)
-    # return md.toc
     template = page.meta.get('template', 'flatpage.html')
     return flask.render_template(template, page=page)
+
+
+# website edits
+@blueprint.route('/edit', methods=['GET', 'POST'])
+@login_required
+def edit_page():
+    flask.flash('I have not finished this page yet or is simply too lazy.')
+    flask.abort(501)
+
+@blueprint.route('/create', methods=['POST'])
+@login_required
+def create_page():
+    flask.flash('I have not finished this page yet or is simply too lazy.')
+    flask.abort(501)
+
+@blueprint.route('/upload', methods=['GET', 'POST'])
+@login_required
+def upload_file():
+    flask.flash('I have not finished this page yet or is simply too lazy.')
+    flask.abort(501)

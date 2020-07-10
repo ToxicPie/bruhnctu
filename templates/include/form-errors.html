@@ -1,0 +1,4 @@
+{% from 'include/flash-messages.html' import alert %}
+{% for field, errors in form.errors.items() %}
+    {{ alert('<strong>Error</strong>: {0}: {1}'.format(form[field].label.text|escape, ', '.join(errors)|escape), 'error') }}
+{% endfor %}

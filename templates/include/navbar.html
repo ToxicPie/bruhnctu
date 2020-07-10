@@ -3,7 +3,7 @@
     {% if current_user.is_authenticated %}
         <a id="edit" class="menu-item">Edit this page</a>
     {% else %}
-        <a id="edit" class="menu-item" href="{{ url_for('auth.login_get', next=request.full_path) }}">Log in to edit</a>
+        <a id="edit" class="menu-item" href="{{ url_for('auth.login', next=request.full_path) }}">Log in to edit</a>
     {% endif %}
     <a class="menu-item" href="#">Back to top</a>
     <hr>

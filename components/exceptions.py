@@ -1,6 +1,7 @@
 import flask
 from werkzeug.exceptions import HTTPException
 from flask_wtf.csrf import CSRFError
+from .http_statuses import HTTP_STATUSES
 import logging
 
 
@@ -19,15 +20,8 @@ def on_error(e):
     else:
         error_code = 500
 
-    ERROR_MSGS = {
-        400: 'Bad Request',
-        401: 'Unauthorized',
-        403: 'Forbidden',
-        404: 'Not Found',
-        405: 'Method Not Allowed',
-        500: 'Internal Server Error'
-    }
-    error_msg = ERROR_MSGS.get(error_code, 'Unhandled error')
+    error_msg = HTTP_STATUSES.get(error_code, 'Unknown error')
+    
     if error_code == 500:
         flask.flash('Unexpected error! Please contact the admin so he can panic.', 'error')
 
