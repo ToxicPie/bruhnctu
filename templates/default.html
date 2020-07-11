@@ -9,11 +9,12 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-    {% block nav %}{% endblock %}
     <div class="content">
         <div class="section title">
             <h1>{% block h1 %}{% endblock %}</h1>
         </div>
+        
+        {% block nav %}{% endblock %}
 
         {% block messages %}
             {% include('include/flash-messages.html') %}

@@ -1,5 +1,5 @@
 {% macro alert(message, category='message') %}
-    <div class="alert alert-{{ category }}">
+    <div class="alert {{ category }}">
         <span>{{ message|safe }}</span>
         <span class="close-button">&times;</span>
     </div>
