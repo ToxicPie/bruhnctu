@@ -38,20 +38,20 @@ def flatpage(path):
 
 
 # website edits
-@blueprint.route('/edit', methods=['GET', 'POST'])
+@blueprint.route('/editpage', methods=['GET', 'POST'])
 @login_required
 def edit_page():
-    flask.flash('I have not finished this page yet or is simply too lazy.')
+    flask.flash('I have not finished this function yet.')
     flask.abort(501)
 
-@blueprint.route('/create', methods=['POST'])
+@blueprint.route('/createpage', methods=['POST'])
 @login_required
 def create_page():
-    flask.flash('I have not finished this page yet or is simply too lazy.')
+    flask.flash('I have not finished this function yet.')
     flask.abort(501)
 
 @blueprint.route('/upload', methods=['GET', 'POST'])
 @login_required
 def upload_file():
-    flask.flash('I have not finished this page yet or is simply too lazy.')
+    flask.flash('I have not finished this function yet.')
     flask.abort(501)

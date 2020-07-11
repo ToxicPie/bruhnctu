@@ -103,7 +103,8 @@ strong, h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 pre, code {
-    font-family: "Source Code Pro";
+    cursor: text;
+    font-family: "DM Mono";
 }
 p > code {
     background: #f4f4f4;
@@ -195,12 +196,15 @@ blockquote > p:last-child, .alert > p:last-child {
 }
 
 a {
-    color: #4090e0;
+    color: #1070c0;
     text-decoration: none;
 }
 a:hover {
-    color: #206090;
     text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
 }
 
 summary {
