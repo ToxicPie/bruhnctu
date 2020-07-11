@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', (e) => {
     // add click for spoilers
-    for(const elem of document.getElementsByTagName('spoiler')) {
+    for(const elem of document.getElementsByClassName('spoiler')) {
         elem.setAttribute('tabindex', '-1');
         elem.setAttribute('title', 'You\'ve known too much.');
     }
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         });
     }
     if(document.getElementsByClassName('toc').length !== 0 &&
-       document.getElementById('toc-container') !== null) {
+        document.getElementById('toc-container') !== null) {
         let toc = document.getElementsByClassName('toc')[0];
         document.getElementById('toc-container').appendChild(toc);
     }

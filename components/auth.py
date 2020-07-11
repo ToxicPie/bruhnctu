@@ -33,9 +33,30 @@ def logout():
     flash('You have logged out.', 'info')
     return redirect(url_for('pages.index'))
 
+# check if a url is safe for redirect
+def is_safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return (test_url.scheme in ('http', 'https') and
+            ref_url.netloc == test_url.netloc)
+
 
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+
+    def go_next():
+        next = request.args.get('next')
+        if not is_safe_url(next):
+            flash('Bad hacker ...?', 'warning')
+            return abort(400)
+        return redirect(next or url_for('pages.index'))
+
+    print('start')
+
+    if current_user.is_authenticated:
+        flash('You are already logged in!', 'info')
+        return go_next()
+
     form = forms.LoginForm(request.form)
     if not form.validate_on_submit():
         return render_template('login.html', form=form)
@@ -49,20 +70,9 @@ def login():
 
     login_user(user, remember=form.remember.data)
 
-    def is_safe_url(target):
-        ref_url = urlparse(request.host_url)
-        test_url = urlparse(urljoin(request.host_url, target))
-        return (test_url.scheme in ('http', 'https') and
-                ref_url.netloc == test_url.netloc)
-
-    next = request.args.get('next')
-    # check if the url is safe for redirect
-    if not is_safe_url(next):
-        flash('Bad hacker ...?', 'warning')
-        return abort(400)
-
     flash('Welcome, {0}!'.format(current_user.username), 'success')
-    return redirect(next or url_for('pages.index'))
+    return go_next()
+
 
 @blueprint.route('/account', methods=['GET', 'POST'])
 @login_required

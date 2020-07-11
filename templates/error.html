@@ -8,7 +8,7 @@
     {% with messages = get_flashed_messages() %}
         {% if messages %}
         <div class="section">
-            <p>{{ messages[0] }}</p>
+            <p>{{ messages[-1] }}</p>
         </div>
         {% endif %}
     {% endwith %}
