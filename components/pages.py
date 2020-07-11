@@ -61,12 +61,12 @@ def flatpage(path):
 def edit_page():
     form = forms.EditPageForm(request.form)
 
-    if form.path.data == '':
+    if not form.path.data:
         form.path.data = request.args.get('path')
 
     orig_file_contents = ''
     # safe ...?
-    if re.match('^[a-zA-Z0-9_/]{3,50}$', form.path.data):
+    if form.path.data and re.match(r'^[a-zA-Z0-9_/]{3,50}$', form.path.data):
         filename = path.normpath('pages/' + form.path.data) + '.md'
         if path.isfile(filename):
             orig_file_contents = open(filename, 'r').read()
