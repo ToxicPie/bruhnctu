@@ -66,7 +66,7 @@ def edit_page():
 
     orig_file_contents = ''
     # safe ...?
-    if re.match(r'^[a-zA-Z0-9_/]{3,50}$', form.path.data):
+    if re.match('^[a-zA-Z0-9_/]{3,50}$', form.path.data):
         filename = path.normpath('pages/' + form.path.data) + '.md'
         if path.isfile(filename):
             orig_file_contents = open(filename, 'r').read()
