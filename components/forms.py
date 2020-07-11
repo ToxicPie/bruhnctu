@@ -17,7 +17,7 @@ class AccountForm(FlaskForm):
     new_username = wtforms.StringField('New username', validators=[
         wtforms.validators.Optional(),
         wtforms.validators.Length(min=3, max=100),
-        wtforms.validators.Regexp(r'[a-zA-Z0-9_]+', message='Can only contain letters, numbers, and underscores.')
+        wtforms.validators.Regexp(r'^[a-zA-Z0-9_]+$', message='Field can only contain letters, numbers, and underscores.')
     ])
     password = wtforms.PasswordField('Current password', validators=[
         wtforms.validators.InputRequired(),
@@ -33,18 +33,15 @@ class AccountForm(FlaskForm):
     ])
 
 class CreatePageForm(FlaskForm):
-    path = wtforms.PasswordField('Confirm password', validators=[
+    path = wtforms.StringField('URL path', validators=[
         wtforms.validators.InputRequired()
     ])
 
 class EditPageForm(FlaskForm):
-    path = wtforms.PasswordField('Confirm password', validators=[
-        wtforms.validators.InputRequired()
+    path = wtforms.StringField('URL path', validators=[
+        wtforms.validators.InputRequired(),
+        wtforms.validators.Length(min=3, max=30),
+        wtforms.validators.Regexp(r'^[a-zA-Z0-9_/]+$', message='Field can only contain letters, numbers, forward slashes, and underscores.')
     ])
-    content = wtforms.TextAreaField('Confirm password', validators=[])
-
-class UploadFileForm(FlaskForm):
-    path = wtforms.PasswordField('Confirm password', validators=[
-        wtforms.validators.InputRequired()
-    ])
-    content = wtforms.TextAreaField('Confirm password', validators=[])
+    content = wtforms.TextAreaField('File contents (markdown)', validators=[])
+    save_file = wtforms.BooleanField('Check to save file; uncheck for view-only', validators=[])

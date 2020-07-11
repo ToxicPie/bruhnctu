@@ -1,4 +1,13 @@
 {% from 'include/flash-messages.html' import alert %}
-{% for field, errors in form.errors.items() %}
-    {{ alert('<strong>Error</strong>: {0}: {1}'.format(form[field].label.text|escape, ', '.join(errors)|escape), 'error') }}
-{% endfor %}
+{% if form.errors %}
+    <div class="alerts">
+    {% for field, errors in form.errors.items() %}
+        {{
+            alert('<strong>Error</strong>: {0}: {1}'.format(
+                form[field].label.text|escape,
+                ' '.join(errors)|escape
+            ), 'error')
+        }}
+    {% endfor %}
+    </div>
+{% endif %}

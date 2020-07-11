@@ -1,14 +1,16 @@
 <div class="navbar">
-    <a class="menu-item" href="/">Home - bruhmd</a>
-    {% if current_user.is_authenticated %}
-        <a id="edit" class="menu-item">Edit this page</a>
-    {% else %}
-        <a id="edit" class="menu-item" href="{{ url_for('auth.login', next=request.full_path) }}">Log in to edit</a>
-    {% endif %}
-    <a class="menu-item" href="#">Back to top</a>
+    <div class="links">
+        <a id="home" class="menu-item" href="/">Home - bruhmd</a>
+        {% if current_user.is_authenticated %}
+            <a id="edit" class="menu-item" href="{{ url_for('pages.edit_page', path=request.path) }}">Edit this page</a>
+        {% else %}
+            <a id="edit" class="menu-item" href="{{ url_for('auth.login', next=request.full_path) }}">Log in to edit</a>
+        {% endif %}
+        <a id="top" class="menu-item" href="#">Back to top</a>
+    </div>
     <hr>
-    <p>Contents</p>
     <div id="toc-container">
+        <p><strong>Contents</strong></p>
         {% block toc %}{% endblock %}
     </div>
 </div>

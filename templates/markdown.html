@@ -24,6 +24,11 @@
 {% endblock %}
 
 {% block h1 %}{{ page['title'] }}{% endblock %}
+{% block h3 %}
+    {% if page['author'] %}
+    Author: {{ page['author'] }}
+    {% endif %}
+{% endblock %}
 
 {% block nav %}
     {% include('include/navbar.html') %}
