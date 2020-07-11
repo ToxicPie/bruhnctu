@@ -2,23 +2,23 @@
 <html>
 <head>
     {% include('include/head-metas.html') %}
+    {% block head %}{% endblock %}
     {% include('include/head-links.html') %}
 
     <title>{% block title %}{% endblock %}</title>
-
-    {% block head %}{% endblock %}
 </head>
 <body>
     <div class="content">
         <div class="section title">
             <h1>{% block h1 %}{% endblock %}</h1>
+            <h3>{% block h3 %}{% endblock %}</h3>
         </div>
-        
-        {% block nav %}{% endblock %}
 
         {% block messages %}
-            {% include('include/flash-messages.html') %}
+        {% include('include/flash-messages.html') %}
         {% endblock %}
+
+        {% block nav %}{% endblock %}
 
         {% block body %}{% endblock %}
 

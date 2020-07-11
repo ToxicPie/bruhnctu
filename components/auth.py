@@ -7,11 +7,7 @@ from . import forms, database
 
 blueprint = Blueprint('auth', __name__)
 
-
 login_manager = LoginManager()
-login_manager.login_view = 'auth.login'
-login_manager.login_message = 'Please login to continue.'
-login_manager.login_message_category = 'warning'
 
 
 @login_manager.user_loader
@@ -78,6 +74,7 @@ def login():
 @login_required
 def account():
     form = forms.AccountForm(request.form)
+
     if not form.validate_on_submit():
         return render_template('account.html', form=form)
 

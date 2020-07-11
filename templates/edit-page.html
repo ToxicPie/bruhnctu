@@ -1,0 +1,48 @@
+{% extends 'default.html' %}
+
+{% block title %}Edit Page{% endblock %}
+
+{% block h1 %}Edit Page / View Source{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/codemirror-5.55.0/lib/codemirror.css">
+    <script src="/static/codemirror-5.55.0/lib/codemirror.js"></script>
+    <script src="/static/codemirror-5.55.0/mode/markdown/markdown.js"></script>
+{% endblock %}
+
+{% block body %}
+{% include('include/form-errors.html') %}
+<div class="section">
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', (e) => {
+            var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('content'), {
+                lineNumbers: true,
+                mode: 'markdown'
+            });
+        });
+
+        const validate_form = () => {
+            // let form = document.forms['edit'];
+            return true;
+        }
+    </script>
+    <form name="edit" method="POST" action="{{ request.path }}" onsubmit="return validate_form();">
+        {{ form.csrf_token }}
+        <div class="form-field">
+            {{ form.path.label }}
+            <br>
+            {{ form.path(minlength='3', maxlength='30') }}
+        </div>
+        <div class="form-field">
+            {{ form.save_file }}
+            {{ form.save_file.label }}
+        </div>
+        <div class="form-field">
+            {{ form.content.label }}
+            <br>
+            {{ form.content }}
+        </div>
+        <input type="submit" class="submit-button" value="Submit">
+    </form>
+</div>
+{% endblock %}
