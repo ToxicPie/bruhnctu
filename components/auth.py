@@ -26,8 +26,8 @@ def handle_needs_login():
 @blueprint.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
-    logout_user()
     logging.info('User {0} (id {1}) has logged out.'.format(current_user.username, current_user.id))
+    logout_user()
 
     flash('You have logged out.', 'info')
     return redirect(url_for('pages.index'))
@@ -111,10 +111,10 @@ def account():
 
     # is something changed?
     if user_updated:
+        logging.info('User {0} (id {1}) has changed their account.'.format(current_user.username, current_user.id))
         database.db.session.commit()
         flash('Your user account has been updated.', 'success')
     else:
-        logging.info('User {0} (id {1}) has changed their account.'.format(current_user.username, current_user.id))
         flash('Nothing was changed.', 'warning')
 
     return redirect(url_for('auth.account'))
