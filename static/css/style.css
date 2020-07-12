@@ -2,9 +2,6 @@ body {
     font-family: "Nunito", "Noto Sans TC", sans-serif;
     color: #171819;
 }
-* {
-    outline: none !important;
-}
 
 @media (max-width: 540px) {
     :root {
@@ -268,9 +265,16 @@ table:not(.codehilitetable) tr th :last-child, table tr td :last-child {
     margin-bottom: 0;
 }
 
-.katex-display {
-    overflow-x: auto;
-    overflow-y: hidden;
+.math-container {
+    overflow: auto;
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+    margin: -1em 0;
+    height: min-content;
+}
+.math-container ~ .math-container {
+    margin-top: -2em;
 }
 
 .form-field {

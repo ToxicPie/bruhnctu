@@ -1,6 +1,6 @@
 {% extends 'default.html' %}
 
-{% block title %}{{ page['title'] }}{% endblock %}
+{% block title %}{{ title|escape }}{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/markdown-code.css') }}" />
@@ -13,20 +13,20 @@
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
             delimiters: [
-                {left: "$", right: "$", display: false},
                 {left: "$$", right: "$$", display: true},
-                {left: "\\(", right: "\\)", display: false},
-                {left: "\\[", right: "\\]", display: true}
+                {left: "$", right: "$", display: false},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "\\(", right: "\\)", display: false}
             ]
         });
     });
 </script>
 {% endblock %}
 
-{% block h1 %}{{ page['title'] }}{% endblock %}
+{% block h1 %}{{ title|escape }}{% endblock %}
 {% block h3 %}
-    {% if page['author'] %}
-    Author: {{ page['author'] }}
+    {% if author %}
+    Author: {{ author|escape }}
     {% endif %}
 {% endblock %}
 

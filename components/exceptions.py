@@ -23,8 +23,6 @@ def on_error(e):
     error_msg = HTTP_STATUSES.get(error_code, 'Unknown error')
 
     if error_code == 500:
-        flask.flash('Unexpected error! Please contact the admin so he can panic.', 'error')
+        flask.flash('Unexpected error! Please contact the developer so he can panic.', 'error')
 
-    return flask.render_template('error.html',
-                                 code=error_code,
-                                 message=error_msg), error_code
+    return flask.render_template('error.html', code=error_code, message=error_msg), error_code

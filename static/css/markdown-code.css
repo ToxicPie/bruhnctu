@@ -5,7 +5,8 @@
 .codehilite pre {
     margin: 0 1em 0 0;
 }
-.linenodiv { color: #999999; user-select: none; padding: 0 .25em } /* line numbers */
+.linenos { user-select: none } /* line numbers */
+.linenodiv { color: #999999; padding: 0 .25em } /* line numbers */
 .codehilite span { line-height: 1em } /* some fonts have bold text a little taller */
 
 /* default.css from pygments-css */

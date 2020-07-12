@@ -17,7 +17,8 @@
         document.addEventListener('DOMContentLoaded', (e) => {
             var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('content'), {
                 lineNumbers: true,
-                mode: 'markdown'
+                mode: 'markdown',
+                lineSeparator: '\n'
             });
         });
 

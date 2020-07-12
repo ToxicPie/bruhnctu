@@ -8,8 +8,9 @@ from os import path
 import re
 from hashlib import md5
 import markdown
+from yaml.constructor import ConstructorError
+from jinja2.exceptions import TemplateNotFound
 from markdown.extensions.toc import TocExtension
-
 
 
 blueprint = Blueprint('pages', __name__)
@@ -39,20 +40,33 @@ def teapot():
 @blueprint.route('/<path:path>')
 def flatpage(path):
     page = flatpages.get_or_404(path)
-
-    # check permissions t view the page
-    login_required = page.meta.get('login_required', False)
-    if login_required:
-        if not current_user.is_authenticated:
+    try:
+        # check permissions to view the page
+        login_required = page.meta.get('login_required', False)
+        if login_required and not current_user.is_authenticated:
             return auth.handle_needs_login()
 
-    template = str(page.meta.get('template', 'default'))
-    if template == 'default':
-        template = 'markdown.html'
-    elif not template.endswith('.html'):
-        template += '.html'
+        author = page.meta.get('author', 'default')
+        if type(author) is not str:
+            author = None
+        title = page.meta.get('title', 'default')
+        if type(title) is not str:
+            title = path
 
-    return render_template(template, page=page)
+        template = page.meta.get('template', 'default')
+        if type(template) is not str:
+            template = 'default'
+        if template == 'default':
+            template = 'markdown.html'
+        elif not template.endswith('.html'):
+            template += '.html'
+
+        return render_template(template, page=page, title=title, author=author)
+
+    except (TemplateNotFound, ConstructorError):
+        # yaml format error?
+        flash('The page you are trying to access contains invalid data. If you have an authorized account, maybe try fixing it?', 'error')
+        return render_template('markdown.html', page=page, title=path)
 
 
 # website edits
@@ -69,6 +83,7 @@ def edit_page():
     if form.path.data and re.match(r'^[a-zA-Z0-9_/]{3,50}$', form.path.data):
         filename = path.normpath('pages/' + form.path.data) + '.md'
         if path.isfile(filename):
+            form.save_file.data = True
             orig_file_contents = open(filename, 'r').read()
 
     if not form.validate_on_submit():
@@ -103,6 +118,9 @@ def edit_page():
             with open(filename, 'w') as file:
                 file.write(form.content.data)
             flash('Page {0} has been updated.'.format(form.path.data), 'success')
+
+        # redirect to prevent browser issues
+        return redirect(url_for('pages.edit_page', path=form.path.data))
 
     return render_template('edit-page.html', form=form)
 

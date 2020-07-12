@@ -2,13 +2,12 @@ import flask
 from flask_flatpages import FlatPages
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
-
+from os import urandom
 
 app = flask.Flask(__name__)
 
 app.config.from_pyfile('config/flask_config.py')
-# generated from os.urandom(24)
-app.secret_key = b'\x03\xbc\xde\xef\x9c\x35\x98\x92\x50\x07\x0f\x2e\x25\xe5\x9a\x61\xa5\x4c\x5f\x43\x64\x7f\xa9\x59'
+app.secret_key = urandom(32)
 
 
 
@@ -28,4 +27,3 @@ app.register_blueprint(auth.blueprint)
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0')
-    # app.auth.add_user('toxicpie', 'password')

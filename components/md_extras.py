@@ -22,6 +22,20 @@ class UnderlinePattern(markdown.inlinepatterns.Pattern):
         elem.text = m.group(3)
         return elem
 
+class InlineMathPattern(markdown.inlinepatterns.Pattern):
+    def handleMatch(self, m):
+        elem = etree.Element('span')
+        elem.set('class', 'math-container')
+        elem.text = m.group(2)
+        return elem
+
+class DisplayMathPattern(markdown.inlinepatterns.Pattern):
+    def handleMatch(self, m):
+        elem = etree.Element('div')
+        elem.set('class', 'math-container')
+        elem.text = m.group(2)
+        return elem
+
 # stolen from https://github.com/Python-Markdown/markdown/blob/master/markdown/extensions/admonition.py
 class AlertProcessor(BlockProcessor):
     CLASSNAME = 'alert'
@@ -82,17 +96,37 @@ DEL_RE = r'(~~)(.*?)~~'
 SPO_RE = r'(\|\|)(.*?)\|\|'
 UND_RE = r'(__)(.*?)__'
 SLA_RE = r'(\/\/)(.*?)\/\/'
+MATH_RES = [
+    # r'((\$+)(.+?)\$+)',
+    r'((\$\$)(.+?)\$\$)',
+    r'((\\\\\[)(.+?)\\\\\])',
+    # r'((\$)(.+?)\$)',
+    r'[^\$]((\$)([^\$]+?)\$)',
+    r'((\\\\\()(.+?)\\\\\))'
+]
+# MATH_RE_ALL = r'((\\\[)(.*?)\\\])|((\$\$)(.*?)\$\$)|((\$)(.*?)\$)|((\\\()(.*?)\\\))'
 
 class MyExtension(Extension):
     def extendMarkdown(self, md, *args):
         del_pattern = SimpleTagPattern(DEL_RE, 'del')
-        md.inlinePatterns.register(del_pattern, 'del', 120)
+        md.inlinePatterns.register(del_pattern, 'del', 105)
         spo_pattern = SpoilerPattern(SPO_RE)
-        md.inlinePatterns.register(spo_pattern, 'spoiler', 120)
+        md.inlinePatterns.register(spo_pattern, 'spoiler', 105)
         und_pattern = UnderlinePattern(UND_RE)
-        md.inlinePatterns.register(und_pattern, 'underline', 120)
+        md.inlinePatterns.register(und_pattern, 'underline', 105)
+        # math patterns
+        # priority 185, 186: lower than `` and higher than most things
+        # display math is higher
+        math_pattern = DisplayMathPattern(MATH_RES[0])
+        md.inlinePatterns.register(math_pattern, 'math_0', 186)
+        math_pattern = DisplayMathPattern(MATH_RES[1])
+        md.inlinePatterns.register(math_pattern, 'math_1', 186)
+        math_pattern = InlineMathPattern(MATH_RES[2])
+        md.inlinePatterns.register(math_pattern, 'math_2', 185)
+        math_pattern = InlineMathPattern(MATH_RES[3])
+        md.inlinePatterns.register(math_pattern, 'math_3', 185)
 
-        md.parser.blockprocessors.register(AlertProcessor(md.parser), 'alert', 105)
+        md.parser.blockprocessors.register(AlertProcessor(md.parser), 'alert', 200)
 
 def makeExtension(**kwargs):
     return MyExtension(**kwargs)
