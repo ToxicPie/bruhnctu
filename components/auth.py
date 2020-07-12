@@ -50,8 +50,6 @@ def login():
             return abort(400)
         return redirect(next or url_for('pages.index'))
 
-    print('start')
-
     if current_user.is_authenticated:
         flash('You are already logged in!', 'info')
         return go_next()

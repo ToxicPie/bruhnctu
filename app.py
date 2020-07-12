@@ -3,12 +3,15 @@ from flask_flatpages import FlatPages
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 from os import urandom
+import logging
+
 
 app = flask.Flask(__name__)
 
 app.config.from_pyfile('config/flask_config.py')
 app.secret_key = urandom(32)
 
+logging.basicConfig(filename='/var/log/bruhnctu.log',level=logging.DEBUG)
 
 
 from components import pages, exceptions, auth
