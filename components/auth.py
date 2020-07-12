@@ -3,6 +3,7 @@ import bcrypt
 from urllib.parse import urlparse, urljoin
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from . import forms, database
+import logging
 
 
 blueprint = Blueprint('auth', __name__)
@@ -26,6 +27,8 @@ def handle_needs_login():
 @login_required
 def logout():
     logout_user()
+    logging.info('User {0} (id {1}) has logged out.'.format(current_user.username, current_user.id))
+
     flash('You have logged out.', 'info')
     return redirect(url_for('pages.index'))
 
@@ -65,6 +68,7 @@ def login():
         return render_template('login.html', form=form)
 
     login_user(user, remember=form.remember.data)
+    logging.info('User {0} (id {1}) has logged in.'.format(current_user.username, current_user.id))
 
     flash('Welcome, {0}!'.format(current_user.username), 'success')
     return go_next()
@@ -110,6 +114,7 @@ def account():
         database.db.session.commit()
         flash('Your user account has been updated.', 'success')
     else:
+        logging.info('User {0} (id {1}) has changed their account.'.format(current_user.username, current_user.id))
         flash('Nothing was changed.', 'warning')
 
     return redirect(url_for('auth.account'))

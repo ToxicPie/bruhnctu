@@ -109,7 +109,7 @@ strong, h1, h2, h3, h4, h5, h6 {
     padding: 0;
 }
 .linenodiv {
-    padding: 0;
+    padding: 0 .25em 0 .5em;
 }
 .linenodiv pre {
     margin: 0;
@@ -127,7 +127,7 @@ p > code {
     padding-left: .25em;
 }
 .linenodiv pre, .codehilite, pre code {
-    font-size: .85rem;
+    font-size: .9rem;
 }
 
 blockquote {

@@ -11,17 +11,17 @@ blueprint = flask.Blueprint('exceptions', __name__)
 # error handler
 @blueprint.app_errorhandler(Exception)
 def on_error(e):
-    logging.exception(e)
     if isinstance(e, CSRFError):
         flask.flash('Invalid CSRF token.', 'error')
         error_code = 400
     elif isinstance(e, HTTPException):
         error_code = e.code
     else:
+        logging.exception(e)
         error_code = 500
 
     error_msg = HTTP_STATUSES.get(error_code, 'Unknown error')
-    
+
     if error_code == 500:
         flask.flash('Unexpected error! Please contact the admin so he can panic.', 'error')
 
