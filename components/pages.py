@@ -83,7 +83,6 @@ def edit_page():
     if form.path.data and re.match(r'^[a-zA-Z0-9_/]{3,50}$', form.path.data):
         filename = path.normpath('pages/' + form.path.data) + '.md'
         if path.isfile(filename):
-            form.save_file.data = True
             orig_file_contents = open(filename, 'r').read()
 
     if not form.validate_on_submit():
@@ -123,16 +122,3 @@ def edit_page():
         return redirect(url_for('pages.edit_page', path=form.path.data))
 
     return render_template('edit-page.html', form=form)
-
-
-@blueprint.route('/createpage', methods=['POST'])
-@login_required
-def create_page():
-    flash('I have not finished this function yet.')
-    abort(501)
-
-@blueprint.route('/upload', methods=['GET', 'POST'])
-@login_required
-def upload_file():
-    flash('I have not finished this function yet.')
-    abort(501)
