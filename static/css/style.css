@@ -269,11 +269,13 @@ table:not(.codehilitetable) tr th :last-child, table tr td :last-child {
     overflow: auto;
     box-sizing: border-box;
     max-width: 100%;
+}
+div.math-container {
     width: 100%;
     margin: -1em 0;
     height: min-content;
 }
-.math-container ~ .math-container {
+div.math-container ~ div.math-container {
     margin-top: -2em;
 }
 
