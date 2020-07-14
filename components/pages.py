@@ -113,10 +113,16 @@ def edit_page():
             os.makedirs(path.dirname(new_file), exist_ok=True)
             with open(new_file, 'wb') as file:
                 file.write(orig_file_contents)
-            # update file
-            with open(filename, 'w') as file:
-                file.write(form.content.data)
-            flash('Page {0} has been updated.'.format(form.path.data), 'success')
+
+            # update file (or remove file if content is empty)
+            if form.content.data:
+                with open(filename, 'w') as file:
+                    file.write(form.content.data)
+                flash('Page {0} has been updated.'.format(form.path.data), 'success')
+
+            else:
+                os.unlink(filename)
+                flash('Page {0} has been removed due to empty input.'.format(form.path.data), 'info')
 
         # redirect to prevent browser issues
         return redirect(url_for('pages.edit_page', path=form.path.data))
