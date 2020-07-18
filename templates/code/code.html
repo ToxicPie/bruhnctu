@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% include('include/head-metas.html') %}
+
     <title>{{ title }}</title>
-    {% if (dark is defined and dark) %}
+
+    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/code-display.css') }}" />
+    {% if dark %}
     <meta name="theme-color" content="#333333">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/code-dark.css') }}" />
     {% else %}
@@ -11,6 +17,24 @@
     {% endif %}
 </head>
 <body>
+    <div class="title">
+        <h1>{{ title }}</h1>
+    </div>
+    <div class="controls">
+        <a id="copy" class="control-button" href="javascript:void(0);" onclick="copy();">Copy</a>
+        <a id="copy" class="control-button" href="{{ request.path }}" download>Download</a>
+        <a id="copy" class="control-button" href="javascript:void(0);" onclick="window.print();">Print</a>
+    </div>
+    <script>
+        function copy() {
+            var range = document.createRange();
+            range.selectNode(document.getElementsByClassName('highlight')[0]);
+            window.getSelection().removeAllRanges(); // clear current selection
+            window.getSelection().addRange(range); // to select text
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();// to deselect
+        }
+    </script>
     {{ html }}
 </body>
 </html>

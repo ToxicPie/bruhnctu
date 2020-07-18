@@ -128,3 +128,10 @@ def edit_page():
         return redirect(url_for('pages.edit_page', path=form.path.data))
 
     return render_template('edit-page.html', form=form)
+
+# pastebin
+@blueprint.route('/paste', methods=['GET', 'POST'])
+def paste_code():
+    form = forms.PasteForm(request.form)
+
+    return render_template('paste.html', form=form)

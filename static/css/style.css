@@ -114,7 +114,7 @@ strong, h1, h2, h3, h4, h5, h6 {
 pre, code {
     cursor: text;
     font-size: .9rem;
-    font-family: "DM Mono";
+    font-family: "DM Mono", monospace;
 }
 p > code {
     background: #f4f4f4;
@@ -248,13 +248,11 @@ table:not(.codehilitetable) tbody tr:nth-child(2n+1) {
 table:not(.codehilitetable) tr th {
     font-weight: bold;
     border: 1px solid #bbb;
-    text-align: left;
     margin: 0;
     padding: 6px 13px;
 }
 table tr td {
     border: 1px solid #bbb;
-    text-align: left;
     margin: 0;
     padding: 6px 13px;
 }
@@ -266,6 +264,7 @@ table:not(.codehilitetable) tr th :last-child, table tr td :last-child {
 }
 
 .math-container {
+    font-size: .9rem;
     overflow: auto;
     box-sizing: border-box;
     max-width: 100%;
@@ -306,8 +305,17 @@ input.submit-button {
     height: auto;
     box-sizing: border-box;
     font-size: .85rem;
-    font-family: "DM Mono";
+    font-family: "DM Mono", monospace;
     border: 1px solid #bbb;
+}
+#paste_content {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 12em;
+    box-sizing: border-box;
+    font-size: .85rem;
+    font-family: "DM Mono", monospace;
 }
 
 footer hr {

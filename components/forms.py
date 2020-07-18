@@ -40,8 +40,17 @@ class CreatePageForm(FlaskForm):
 class EditPageForm(FlaskForm):
     path = wtforms.StringField('URL path', validators=[
         wtforms.validators.InputRequired(),
-        wtforms.validators.Length(min=3, max=30),
+        wtforms.validators.Length(min=3, max=50),
         wtforms.validators.Regexp(r'^[a-zA-Z0-9_/]+$', message='Field can only contain letters, numbers, forward slashes, and underscores.')
     ])
     content = wtforms.TextAreaField('File contents (markdown)', validators=[])
     save_file = wtforms.BooleanField('Check to save file; uncheck for view-only', validators=[])
+
+class PasteForm(FlaskForm):
+    format = wtforms.StringField('File format', validators=[
+        wtforms.validators.InputRequired(),
+        wtforms.validators.Length(min=3, max=50),
+        wtforms.validators.Regexp(r'^[a-zA-Z0-9_]+$', message='Field can only contain letters, numbers, and underscores.')
+    ])
+    guess_language = wtforms.BooleanField('Guess language (Experimental)', validators=[])
+    paste_content = wtforms.TextAreaField('Contents to paste', validators=[])

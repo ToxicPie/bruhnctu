@@ -74,12 +74,3 @@ def get_storage(path):
 
     # print requested file
     return render_code(path, force_raw=False)
-
-# def get_pcca_uploaded(path):
-#     # get file from path requested
-#     filename = os.path.abspath(os.path.join('/web/cossite-parto/u', path))
-#     if not os.path.isfile(filename):
-#         flask.abort(404)
-#
-#     # print requested file
-#     return render_code(filename, force_raw=True)
