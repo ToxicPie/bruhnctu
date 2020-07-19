@@ -26,7 +26,7 @@
 {% block h1 %}{{ title|escape }}{% endblock %}
 {% block more_titles %}
     {% if author %}
-    <h3>Author: {{ author|escape }}</h3>
+        <h3>Setter: {{ author|escape }}</h3>
     {% endif %}
 {% endblock %}
 
@@ -39,6 +39,23 @@
 {% endblock %}
 
 {% block body %}
-    {# {% include('include/navbar.html') %} #}
+    <div class="alert info">
+        <p class="alert-title">Problem info</p>
+        <p>
+        {% if page.meta.time_limit %}
+            Time limit: {{ page.meta.time_limit|escape }} sec
+        {% else %}
+            Time limit not set
+        {% endif %}
+        <br>
+        {% if page.meta.mem_limit %}
+            Memory limit: {{ page.meta.mem_limit|escape }} MiB
+        {% else %}
+            Memory limit not set
+        {% endif %}
+        <br>
+        {{ page.meta.get('prob_info', '') }}
+        </p>
+    </div>
     {{ page }}
 {% endblock %}

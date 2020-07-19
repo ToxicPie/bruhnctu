@@ -14,8 +14,9 @@
 {% include('include/form-errors.html') %}
 <div class="section">
     <script type="text/javascript">
+        let editor = undefined;
         document.addEventListener('DOMContentLoaded', (e) => {
-            var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('content'), {
+            editor = CodeMirror.fromTextArea(document.getElementById('content'), {
                 lineNumbers: true,
                 mode: 'markdown',
                 lineSeparator: '\n'

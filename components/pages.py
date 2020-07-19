@@ -46,7 +46,7 @@ def flatpage(path):
         if login_required and not current_user.is_authenticated:
             return auth.handle_needs_login()
 
-        author = page.meta.get('author', 'default')
+        author = page.meta.get('author')
         if type(author) is not str:
             author = None
         title = page.meta.get('title', 'default')

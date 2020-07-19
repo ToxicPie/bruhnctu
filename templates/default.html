@@ -11,7 +11,7 @@
     <div class="content">
         <div class="section title">
             <h1>{% block h1 %}{% endblock %}</h1>
-            <h3>{% block h3 %}{% endblock %}</h3>
+            {% block more_titles %}{% endblock %}
         </div>
 
         {% block messages %}
