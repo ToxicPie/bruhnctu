@@ -264,7 +264,6 @@ table:not(.codehilitetable) tr th :last-child, table tr td :last-child {
 }
 
 .math-container {
-    font-size: .9rem;
     overflow: auto;
     box-sizing: border-box;
     max-width: 100%;
@@ -276,6 +275,9 @@ div.math-container {
 }
 div.math-container ~ div.math-container {
     margin-top: -2em;
+}
+.katex {
+    font-size: 1.05em !important;
 }
 
 .form-field {
