@@ -39,23 +39,17 @@
 {% endblock %}
 
 {% block body %}
+    {% if page.meta['problem info'] is mapping %}
     <div class="alert info">
         <p class="alert-title">Problem info</p>
         <p>
-        {% if page.meta.time_limit %}
-            Time limit: {{ page.meta.time_limit|escape }} sec
-        {% else %}
-            Time limit not set
-        {% endif %}
+            Time limit: {{ page.meta['problem info'].get('time limit', 'unset')|escape }}
         <br>
-        {% if page.meta.mem_limit %}
-            Memory limit: {{ page.meta.mem_limit|escape }} MiB
-        {% else %}
-            Memory limit not set
-        {% endif %}
+            Memory limit: {{ page.meta['problem info'].get('mem limit', 'unset')|escape }}
         <br>
         {{ page.meta.get('prob_info', '') }}
         </p>
     </div>
+    {% endif %}
     {{ page }}
 {% endblock %}

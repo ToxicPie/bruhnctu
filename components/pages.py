@@ -8,8 +8,6 @@ from os import path
 import re
 from hashlib import md5
 import markdown
-from yaml.constructor import ConstructorError
-from jinja2.exceptions import TemplateNotFound
 from markdown.extensions.toc import TocExtension
 
 
@@ -63,8 +61,8 @@ def flatpage(path):
 
         return render_template(template, page=page, title=title, author=author)
 
-    except (TemplateNotFound, ConstructorError):
-        # yaml format error?
+    except:
+        # yaml format error or template not found?
         flash('The page you are trying to access contains invalid data. If you have an authorized account, maybe try fixing it?', 'error')
         return render_template('markdown.html', page=page, title=path)
 
