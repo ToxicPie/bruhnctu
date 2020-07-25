@@ -38,19 +38,14 @@ def render_code(filename, force_raw):
 
     file_path = os.path.join(FILE_PATH_PREFIX, filename)
 
-    # pretty version requested
-    if 'pretty' in flask.request.args:
+    # download version requested
+    if 'download' in flask.request.args:
+        headers = { 'Content-Disposition': f'attachment; filename="{os.path.basename(filename)}"' }
 
-        html = get_html_cached(filename)
-        # is dark theme requested
-        dark = 'dark' in flask.request.args
-        # html title
-        title = os.path.basename(file_path)
+        return flask.send_from_directory(FILE_PATH_PREFIX, filename), 200, headers
 
-        return flask.render_template('code/code.html', trim_blocks=True, dark=dark, title=title, html=flask.Markup(html))
-
-    # return plaintext version otherwise
-    else:
+    # raw version requested
+    elif 'raw' in flask.request.args:
         result = flask.send_from_directory(FILE_PATH_PREFIX, filename)
 
         # set browser to display paintext unless otherwise specified
@@ -60,6 +55,16 @@ def render_code(filename, force_raw):
             headers = { 'Content-Type': 'text/plain; charset=utf-8' }
 
         return result, 200, headers
+
+    # return plaintext version otherwise
+    else:
+        html = get_html_cached(filename)
+        # is dark theme requested
+        dark = 'dark' in flask.request.args
+        # html title
+        title = os.path.basename(file_path)
+
+        return flask.render_template('code/code.html', trim_blocks=True, dark=dark, title=title, html=flask.Markup(html))
 
 
 
