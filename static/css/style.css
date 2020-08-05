@@ -116,7 +116,7 @@ pre, code {
     font-size: .9rem;
     font-family: "DM Mono", monospace;
 }
-p > code {
+*:not(pre) > code {
     background: #f4f4f4;
     padding: 0 .25em;
 }
